@@ -12,7 +12,7 @@ public class App {
         System.out.print("Ingrese la contraseña de MySQL: ");
         String password = scanner.nextLine();
 
-        String jdbcURL = "jdbc:mysql://localhost:3306/ejercicio1";
+        String jdbcURL = "jdbc:mysql://localhost:3306/proyectoBD";
         String username = "root";
 
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
