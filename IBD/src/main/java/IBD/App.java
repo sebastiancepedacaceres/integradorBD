@@ -2,7 +2,6 @@ package IBD;
 
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -45,8 +44,8 @@ public class App {
             Funcionalidades funcionalidades = new Funcionalidades();
                        
             switch(opcion){
-                case 1: funcionalidades.insertarPadrino(connection, "1007", "nom", "nom2", "codp", new Date(System.currentTimeMillis()), "nom3", "nom4", "nom5");break;
-                case 2: funcionalidades.eliminarUnDonante("1001", connection);break;
+                case 1: funcionalidades.insertarPadrino(connection);break;
+                case 2: funcionalidades.eliminarUnDonante(connection);break;
                 case 3: funcionalidades.listarPadrinosYProgramas(connection);break;
                 case 4: funcionalidades.totalAportesMensuales(connection); break;
                 case 5: funcionalidades.listarDonantesMasDeDosProgramas(connection); break;
