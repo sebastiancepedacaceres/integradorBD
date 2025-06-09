@@ -16,7 +16,7 @@ create table if not exists padrinos (
 
 create table if not exists donantes (
 	dni_donante varchar(10) primary key,
-    cuil varchar(14), 
+    cuil varchar(14) unique, 
     ocupacion varchar(40),
     foreign key (dni_donante) references padrinos(dni) on delete cascade on update cascade
 ); 

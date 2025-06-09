@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Scanner;
 import java.io.InputStream;
 
 public class App {
     public static void main(String[] args) {
+
+       
+
         // Carga la configuración de la base de datos desde el archivo config.properties
         Properties props = cargarConfiguracion();
         if (props == null) throw new RuntimeException("No se pudo cargar la configuración de la base de datos");
@@ -24,6 +28,44 @@ public class App {
             System.out.println("Error al conectar con la base de datos:");
             e.printStackTrace();
         }
+       
+        Scanner scanner = new Scanner(System.in);
+        boolean salir = false;
+        int opcion = 0;
+        do {
+            System.out.println("Menú de opciones:");
+            System.out.println("1. Insertar Padrino");
+            System.out.println("2. Eliminar Donante");
+            System.out.println("3. Listar Padrinos y Programas");
+            System.out.println("4. Total Aportes Mensuales de un Programa");
+            System.out.println("5. Listar Donantes que Aportan a Más de Dos Programas");
+            System.out.println("6. Listar Donantes Mensuales y Medios de Pago");
+            System.out.println("7. Salir");
+
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+
+                       
+            switch(opcion){
+                case 1: break;
+                case 2: break;
+                case 3: break;
+                case 4: break;
+                case 5: break;
+                case 6: break;
+                case 7:
+                    System.out.println("Saliendo del programa...");
+                    salir = true; 
+                    break;
+                default:
+                    System.out.println("Opción no válida. Por favor, intente de nuevo.");
+                    break;  
+   
+            }
+
+        } while (!salir);
+
+
     }
 
     /**
