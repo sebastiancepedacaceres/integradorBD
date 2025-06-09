@@ -1,11 +1,12 @@
 package IBD;
 
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Scanner;
-import java.io.InputStream;
 
 public class App {
     public static void main(String[] args) {
@@ -24,10 +25,7 @@ public class App {
         // Intenta establecer la conexión con la base de datos
         try (Connection connection = DriverManager.getConnection(jdbcURL, username, password)) {
             System.out.println("¡Conexión exitosa a MySQL!");
-        } catch (SQLException e) {
-            System.out.println("Error al conectar con la base de datos:");
-            e.printStackTrace();
-        }
+        
        
         Scanner scanner = new Scanner(System.in);
         boolean salir = false;
@@ -44,15 +42,15 @@ public class App {
 
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
-
+            Funcionalidades funcionalidades = new Funcionalidades();
                        
             switch(opcion){
-                case 1: break;
-                case 2: break;
-                case 3: break;
-                case 4: break;
-                case 5: break;
-                case 6: break;
+                case 1: funcionalidades.insertarPadrino(connection, "1007", "nom", "nom2", "codp", new Date(System.currentTimeMillis()), "nom3", "nom4", "nom5");break;
+                case 2: funcionalidades.eliminarUnDonante("1001", connection);break;
+                case 3: funcionalidades.listarPadrinosYProgramas(connection);break;
+                case 4: funcionalidades.totalAportesMensuales(connection); break;
+                case 5: funcionalidades.listarDonantesMasDeDosProgramas(connection); break;
+                case 6: funcionalidades.listarDonantesMensualesYMediosPago(connection);break;
                 case 7:
                     System.out.println("Saliendo del programa...");
                     salir = true; 
@@ -65,6 +63,10 @@ public class App {
 
         } while (!salir);
 
+        } catch (SQLException e) {
+            System.out.println("Error al conectar con la base de datos:");
+            e.printStackTrace();
+        }
 
     }
 
