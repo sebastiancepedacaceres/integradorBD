@@ -26,37 +26,75 @@ public class Funcionalidades {
 
         Scanner scanner = new Scanner(System.in);
         
+        
         System.out.println("Ingrese el dni del padrino que desea registrar: ");
         dni = scanner.nextLine();
+        while(dni.length() > 10 ){
+            System.out.println("El DNI excede los 10 caracteres permitidos. Por favor, ingrese un DNI válido: ");
+            dni = scanner.nextLine();
+        }
 
         System.out.println("Ingrese nombre y apellido del padrino: ");
         nomPadrino = scanner.nextLine();
+        while(nomPadrino.length() > 50 ){
+            System.out.println("El nombre del padrino excede los 50 caracteres permitidos. Por favor, ingrese un nombre válido: ");
+            nomPadrino = scanner.nextLine();
+        }
 
         System.out.println("Ingrese la dirección: ");
         direccion = scanner.nextLine();
+        if(direccion.length() > 40 || direccion.isEmpty()){
+            direccion = null;
+        }
 
         System.out.println("Ingrese el Codigo Postal: ");
         codPostal = scanner.nextLine();
+        if(codPostal.length() > 10 || codPostal.isEmpty()){
+            codPostal = null;
+        }
 
 
         System.out.println("Ingrese día de la fecha de nacimiento: ");
         int diaNac = scanner.nextInt();
+        while(diaNac < 1 || diaNac > 31){
+            System.out.println("Día inválido. Ingrese un día entre 1 y 31: ");
+            diaNac = scanner.nextInt();
+        }
         System.out.println("Ingrese mes de la fecha de nacimiento: ");
         int mesNac = scanner.nextInt();
+        while(mesNac < 1 || mesNac > 12){
+            System.out.println("Mes inválido. Ingrese un mes entre 1 y 12: ");
+            mesNac = scanner.nextInt();
+        }
         System.out.println("Ingrese año de la fecha de nacimiento: ");
         int anioNac = scanner.nextInt();
+        while(anioNac < 1900 || anioNac > LocalDate.now().getYear()){
+            System.out.println("Año inválido. Ingrese un año entre 1900 y el año actual: ");
+            anioNac = scanner.nextInt();
+        }
 
         LocalDate localDate = LocalDate.of(anioNac, mesNac, diaNac);
         fechaNacimiento = Date.valueOf(localDate);
 
         System.out.println("Ingrese el telefono: ");
         telefono = scanner.nextLine();
+        if(telefono.isEmpty() || telefono.length()>20){
+            telefono = null;
+        }
+        
 
         System.out.println("Ingrese el celular: ");
         celular = scanner.nextLine();
+        while(celular.isEmpty() || celular.length()>20){
+            System.out.println("El celular no puede estar vacío  o exceder los 20 caracteres. Por favor, ingrese un número válido: ");
+            celular = scanner.nextLine();
+        }
 
         System.out.println("Ingrese el usuario de Facebook: ");
         usuarioFacebook = scanner.nextLine();
+        if(usuarioFacebook.isEmpty() || usuarioFacebook.length()>50){
+            usuarioFacebook = null;
+        }
 
         insertarPadrino(conn, dni, nomPadrino, direccion, codPostal, fechaNacimiento, telefono, celular, usuarioFacebook);
         
