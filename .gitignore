@@ -17,5 +17,3 @@ buildNumber.properties
 .classpath
 
 .vscode
-# Ignorar archivo de configuración sensible
-IBD/src/main/resources/IBD/config.properties
