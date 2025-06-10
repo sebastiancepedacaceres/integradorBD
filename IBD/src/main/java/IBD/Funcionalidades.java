@@ -11,8 +11,7 @@ import java.util.Scanner;
 public class Funcionalidades {
 
     //insertarPadrino
-    //recibe datos del padrino y los inserta en la base de datos
-    // Verificacion de datos?
+    //recibe datos del padrino y los verifica antes de insertarlos en la base de datos
     public void insertarPadrino(Connection conn){
 
         String dni;
@@ -30,18 +29,18 @@ public class Funcionalidades {
         System.out.println("Ingrese el dni del padrino que desea registrar: ");
         dni = scanner.nextLine();
         while(dni.length() > 10 ){
-            System.out.println("El DNI excede los 10 caracteres permitidos. Por favor, ingrese un DNI válido: ");
+            System.out.println("El DNI excede los 10 caracteres permitidos. Por favor, ingrese un DNI valido: ");
             dni = scanner.nextLine();
         }
 
         System.out.println("Ingrese nombre y apellido del padrino: ");
         nomPadrino = scanner.nextLine();
         while(nomPadrino.length() > 50 ){
-            System.out.println("El nombre del padrino excede los 50 caracteres permitidos. Por favor, ingrese un nombre válido: ");
+            System.out.println("El nombre del padrino excede los 50 caracteres permitidos. Por favor, ingrese un nombre valido: ");
             nomPadrino = scanner.nextLine();
         }
 
-        System.out.println("Ingrese la dirección: ");
+        System.out.println("Ingrese la direccion: ");
         direccion = scanner.nextLine();
         if(direccion.length() > 40 || direccion.isEmpty()){
             direccion = null;
@@ -63,7 +62,7 @@ public class Funcionalidades {
         System.out.println("Ingrese el celular: ");
         celular = scanner.nextLine();
         while(celular.isEmpty() || celular.length()>20){
-            System.out.println("El celular no puede estar vacío  o exceder los 20 caracteres. Por favor, ingrese un número válido: ");
+            System.out.println("El celular no puede estar vacio  o exceder los 20 caracteres. Por favor, ingrese un numero valido: ");
             celular = scanner.nextLine();
         }
 
@@ -73,22 +72,22 @@ public class Funcionalidades {
             usuarioFacebook = null;
         }
 
-        System.out.println("Ingrese día de la fecha de nacimiento: ");
+        System.out.println("Ingrese dia de la fecha de nacimiento: ");
         int diaNac = scanner.nextInt();
         while(diaNac < 1 || diaNac > 31){
-            System.out.println("Día inválido. Ingrese un día entre 1 y 31: ");
+            System.out.println("Dia invalido. Ingrese un día entre 1 y 31: ");
             diaNac = scanner.nextInt();
         }
         System.out.println("Ingrese mes de la fecha de nacimiento: ");
         int mesNac = scanner.nextInt();
         while(mesNac < 1 || mesNac > 12){
-            System.out.println("Mes inválido. Ingrese un mes entre 1 y 12: ");
+            System.out.println("Mes invalido. Ingrese un mes entre 1 y 12: ");
             mesNac = scanner.nextInt();
         }
         System.out.println("Ingrese año de la fecha de nacimiento: ");
         int anioNac = scanner.nextInt();
         while(anioNac < 1900 || anioNac > LocalDate.now().getYear()){
-            System.out.println("Año inválido. Ingrese un año entre 1900 y el año actual: ");
+            System.out.println("Año invalido. Ingrese un año entre 1900 y el año actual: ");
             anioNac = scanner.nextInt();
         }
 
@@ -98,7 +97,11 @@ public class Funcionalidades {
         insertarPadrino(conn, dni, nomPadrino, direccion, codPostal, fechaNacimiento, telefono, celular, usuarioFacebook);
         
     }
-    //
+
+    //inserta un padrino en la base de datos
+    //verifica si el padrino ya existe en la base de datos
+    //si el padrino ya existe, no lo inserta y muestra un mensaje
+    //si el padrino no existe, lo inserta 
     public void insertarPadrino(Connection conn, String dni, String nomPadrino, String direccion, String codPostal, java.sql.Date fechaNacimiento, String telefono, String celular, String usuarioFacebook) {
 
         String sqlVerificar = "SELECT dni FROM padrinos WHERE dni = ?";
@@ -137,7 +140,7 @@ public class Funcionalidades {
         }         
     }
 
-    //EliminarUnDonante
+    //chequea si el dni cumple las restricciones de la base de datos
     public void eliminarUnDonante(Connection conn){
         System.out.println("Ingrese el dni del donante que desea eliminar: ");
         Scanner scanner = new Scanner(System.in);
@@ -146,9 +149,14 @@ public class Funcionalidades {
         eliminarUnDonante(dni, conn);
 
     }
+
+    //elimina un donante de la base de datos
+    //verifica si el donante existe en la base de datos
+    //si el donante no existe, muestra un mensaje
+    //si el donante existe, lo elimina
     public void eliminarUnDonante(String dni, Connection conn) throws IllegalArgumentException {
         if (dni == null || dni.isEmpty()) {
-            throw new IllegalArgumentException("El DNI no puede ser nulo o vacío.");
+            throw new IllegalArgumentException("El DNI no puede ser nulo o vacio.");
         }
         if (dni.length() > 10) {
             System.out.println("El DNI excede los 10 caracteres permitidos.");
@@ -171,7 +179,7 @@ public class Funcionalidades {
                 if (filas > 0) {
                     System.out.println("Donante eliminado correctamente.");
                 } else {
-                    System.out.println("Ocurrió un error al intentar eliminar al donante.");
+                    System.out.println("Ha ocurrido un error al intentar eliminar al donante.");
                 }
             } else {
 
@@ -225,7 +233,7 @@ public class Funcionalidades {
                 String descripcion = rs.getString("descripcion");
                 float aportesTotales = rs.getFloat("aportes_totales");
 
-                System.out.println("ID: " + id + ", Nombre del programa: " + nombre + ", Descripción: " + descripcion + ", Aportes totales: " + aportesTotales);
+                System.out.println("ID: " + id + ", Nombre del programa: " + nombre + ", Descripcion: " + descripcion + ", Aportes totales: " + aportesTotales);
             }
 
         } catch (SQLException e) {
@@ -276,7 +284,7 @@ public class Funcionalidades {
                 String nom_banco = rs.getString("nom_banco");
                 String num_sucursal = rs.getString("num_sucursal");
 
-                System.out.println("Pago con Debito Bancario, DNI: " + dni + ", ID del programa: " + id_programa + ", Monto que aporta: " + monto + ", ID del medio de pago: " + id_mp + ", Nombre del titular: " + nom_titular + ", CBU: " + cbu + ", Número de cuenta: " + nro_cuenta + ", Tipo de cuenta: " + tipo + ", Nombre del banco: " + nom_banco + ", Número de sucursal: " + num_sucursal);
+                System.out.println("Pago con Debito Bancario, DNI: " + dni + ", ID del programa: " + id_programa + ", Monto que aporta: " + monto + ", ID del medio de pago: " + id_mp + ", Nombre del titular: " + nom_titular + ", CBU: " + cbu + ", Numero de cuenta: " + nro_cuenta + ", Tipo de cuenta: " + tipo + ", Nombre del banco: " + nom_banco + ", Numero de sucursal: " + num_sucursal);
             }
 
             sql = "SELECT dni, id_programa, monto, id_mp, nom_titular, cbu, nro_cuenta, tipo, nom_banco, num_sucursal FROM (SELECT cu.cbu, id_mp, nro_cuenta, tipo, nom_banco, num_sucursal FROM cuentas cu JOIN transferencias ts ON(cu.cbu=ts.cbu)) AS datos JOIN (SELECT dni, id_programa, monto, m.id_mp, nom_titular FROM mediospagos m INNER JOIN (SELECT dni, id_programa, monto, id_mp FROM aportes WHERE frecuencia = 'Mensual') as ap USING(id_mp)) as conDebito USING(id_mp);";
@@ -314,7 +322,7 @@ public class Funcionalidades {
                 String num_tarjeta = rs.getString("num_tarjeta");
                 
 
-                System.out.println("Pago con Tarjeta de Crédito, DNI: " + dni + ", ID del programa: " + id_programa + ", Monto que aporta: " + monto + ", ID del medio de pago: " + id_mp + ", Nombre del titular: " + nom_titular + ", Fecha de vencimiento: " + fecha_vencimiento + ", Nombre en la tarjeta: " + nom_tarjeta + ", Número de tarjeta: " + num_tarjeta);
+                System.out.println("Pago con Tarjeta de Credito, DNI: " + dni + ", ID del programa: " + id_programa + ", Monto que aporta: " + monto + ", ID del medio de pago: " + id_mp + ", Nombre del titular: " + nom_titular + ", Fecha de vencimiento: " + fecha_vencimiento + ", Nombre en la tarjeta: " + nom_tarjeta + ", Numero de tarjeta: " + num_tarjeta);
 
             }
 
