@@ -53,6 +53,25 @@ public class Funcionalidades {
             codPostal = null;
         }
 
+        System.out.println("Ingrese el telefono: ");
+        telefono = scanner.nextLine();
+        if(telefono.isEmpty() || telefono.length()>20){
+            telefono = null;
+        }
+        
+
+        System.out.println("Ingrese el celular: ");
+        celular = scanner.nextLine();
+        while(celular.isEmpty() || celular.length()>20){
+            System.out.println("El celular no puede estar vacío  o exceder los 20 caracteres. Por favor, ingrese un número válido: ");
+            celular = scanner.nextLine();
+        }
+
+        System.out.println("Ingrese el usuario de Facebook: ");
+        usuarioFacebook = scanner.nextLine();
+        if(usuarioFacebook.isEmpty() || usuarioFacebook.length()>50){
+            usuarioFacebook = null;
+        }
 
         System.out.println("Ingrese día de la fecha de nacimiento: ");
         int diaNac = scanner.nextInt();
@@ -75,26 +94,6 @@ public class Funcionalidades {
 
         LocalDate localDate = LocalDate.of(anioNac, mesNac, diaNac);
         fechaNacimiento = Date.valueOf(localDate);
-
-        System.out.println("Ingrese el telefono: ");
-        telefono = scanner.nextLine();
-        if(telefono.isEmpty() || telefono.length()>20){
-            telefono = null;
-        }
-        
-
-        System.out.println("Ingrese el celular: ");
-        celular = scanner.nextLine();
-        while(celular.isEmpty() || celular.length()>20){
-            System.out.println("El celular no puede estar vacío  o exceder los 20 caracteres. Por favor, ingrese un número válido: ");
-            celular = scanner.nextLine();
-        }
-
-        System.out.println("Ingrese el usuario de Facebook: ");
-        usuarioFacebook = scanner.nextLine();
-        if(usuarioFacebook.isEmpty() || usuarioFacebook.length()>50){
-            usuarioFacebook = null;
-        }
 
         insertarPadrino(conn, dni, nomPadrino, direccion, codPostal, fechaNacimiento, telefono, celular, usuarioFacebook);
         
